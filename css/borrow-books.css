@@ -1,0 +1,40 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.rightside-container{
+    margin-top: 4.125rem;
+    width: 70%;
+    height: auto;
+    /* border:2px solid red; */
+}
+.header{
+    color: #62AB00;
+text-align: center;
+font-family: "Open Sans";
+font-size: 24px;
+font-style: normal;
+font-weight: 600;
+line-height: 14px; /* 58.333% */
+text-transform: uppercase;
+display: flex;
+justify-content: space-between;
+}
+table{
+    width: 100%;    
+    margin-top: 2rem;
+    border-collapse: separate; /* Allows border-spacing to work */
+    border-spacing: 0 1rem; /* Adds space between rows (vertical spacing) */
+}
+tr{
+    
+    background-color: rgb(246, 250, 245);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    
+}
+td{
+    padding-left:2rem;
+    padding-right:2rem;
+}

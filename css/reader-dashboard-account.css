@@ -1,0 +1,214 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+#main-content{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 5.4375rem;
+}
+.title-heading{
+    width: 80%;
+    margin-bottom: 1.25rem;
+    /* border:1px solid red; */
+}
+.account-context{
+    width: 100%;
+    /* background-color: red; */
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+}
+.inner-account-context{
+    width: 80%;
+    /* border:1px solid green; */
+    display: flex;
+    justify-content: space-between;
+}
+.tablist{
+    width: 20%;
+    border:1px solid pink;
+}
+.profile{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+.dp img{
+    width: 60px;
+    height: 60px;
+     
+    
+}
+.name-and-loation p{
+    margin-bottom: 0rem;
+    font-weight: 600;
+    font-size: 16px;
+}
+.tabs{
+    display: flex;
+    flex-direction: column;
+    margin-top: 3.1875rem;
+}
+.tab-divs{
+    width: 100%;
+    height: 3.125rem;
+    border: 1px solid #CECECE;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 20px;
+}
+.tab-title{
+    margin-left: 1rem;
+}
+.active{
+    background-color: #62ab00;
+}
+.my-account-settings-container{
+    width: 70%;
+    /* border:1px solid red; */
+}
+ /* my-account-settings-container css */
+ .upload-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: .6875rem;
+  }
+  
+  .upload-div {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 90%;
+    margin-left: 2.75rem;
+    /* border: 2px dashed #6F8F72; */
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .upload-div img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  .upload-icon {
+    font-size: 12px;
+    color: white;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .upload-div:hover .upload-icon {
+    color: #77AD78;
+  }
+  .half-circle{
+    width: 5rem;
+    height: 2.5rem;
+    border-bottom-left-radius: 2.5rem; 
+    border-bottom-right-radius: 2.5rem;
+    background-color:rgba(0,0,000,0.50) ;
+    position: absolute;
+    top:0rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  /* ----------------- */
+  .input-titles{
+    width: 21.5625rem;
+    /* border: 1px solid red; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 3.375rem;
+    margin-bottom: 1.0625rem;
+    /* flex-direction: column; */
+  }
+  .input-field{
+    width: 21.5625rem;
+    height: 2.8125rem;
+    /* border:1px solid; */
+    /* display: flex; */
+    position: relative;
+  }
+  .input-field input{
+    width: 21.5625rem;
+    height: 2.8125rem;
+    border:1px solid;
+    padding-left: 1.25rem;
+    border-radius: 0.625rem;
+  }
+  .input-field img{
+    position: absolute;
+    top:0.6rem;
+    left:19rem;
+  }
+  .no-type-style{
+    width: 15.5625rem;
+    height: 2.8100rem;
+    border:none;
+    
+  }
+  .input-block{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .inputs{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .btn-blk{
+    /* border: 1px solid red; */
+    display: flex;
+    justify-content: flex-end;
+  }
+  .btns{
+    display: inline-flex;
+min-height: 57px;
+padding: 8.5px 41px;
+justify-content: center;
+align-items: center;
+border-radius: 3px;
+background: #62AB00;
+
+  }
+  input[type="date"] {
+    -webkit-appearance: none; /* For Safari */
+    -moz-appearance: textfield; /* For Firefox */
+    appearance: none;
+    position: relative;
+  }
+#options{
+  -webkit-appearance: none; /* For Safari */
+  -moz-appearance: textfield; /* For Firefox */
+  appearance: none;
+  position: relative;
+}
+#options::-webkit-calendar-picker-indicator {
+  display: none;
+}
+  /* Additional styles to hide the dropdown icon in WebKit browsers (like Chrome) */
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+  }
+
+  

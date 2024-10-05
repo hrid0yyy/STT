@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Virtual Bookshelf with PDF.js and Modal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="css/bookshelf.css">
+    <style>
+       
+    </style>
+</head>
+<body>
+
+    <div class="bookshelf-container">
+        <div id="shelfContainer">
+            <!-- Default rows will be added here -->
+        </div>
+        <div style="display: flex; justify-content: flex-end;">
+          <button id="addRowBtn" style="padding:1rem; border-radius:0.25rem;">Add New Row</button>
+        </div>
+        
+        <!-- Hidden add book controls -->
+        <div class="add-book-controls">
+            <select id="rowSelector">
+                <option value="">Select Row</option>
+            </select>
+            <input type="file" id="fileInput" accept="application/pdf" />
+            <button onclick="clearBooks()">Clear All Books</button>
+        </div>
+    </div>
+
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+
+    <div class="pdf-viewer" id="pdfViewer">
+        <button class="close-button" onclick="closePDF()">Close</button>
+        <div class="pdf-container" id="pdfContainer">
+            <canvas id="pdfCanvasLeft"></canvas>
+            <canvas id="pdfCanvasRight"></canvas>
+        </div>
+
+        <div class="pdf-controls" id="pdfControls" style="display: none;">
+            <button id="prevPageBtn" onclick="prevPage()">Previous Page</button>
+            <span class="page-info" id="pageInfo">Page 1 of 2</span>
+            <button id="nextPageBtn" onclick="nextPage()">Next Page</button>
+        </div>
+
+        <div class="pdf-controls">
+            <button onclick="zoomOut()">Zoom Out</button>
+            <button onclick="zoomIn()">Zoom In</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.8.335/pdf.min.js"></script>
+    <script>
+let pdfDoc = null;
+let pageNum = 1;
+let scale = 1;
+const canvasLeft = document.getElementById('pdfCanvasLeft');
+const canvasRight = document.getElementById('pdfCanvasRight');
+const ctxLeft = canvasLeft.getContext('2d');
+const ctxRight = canvasRight.getContext('2d');
+let totalPages = 1;
+
+// Add row functionality
+document.getElementById('addRowBtn').addEventListener('click', function() {
+   addNewRow();
+});
+
+function addNewRow() {
+   const shelfContainer = document.getElementById('shelfContainer');
+   const rowDiv = document.createElement('div');
+   rowDiv.classList.add('shelf');
+
+   const rowIndex = shelfContainer.children.length;
+
+   rowDiv.innerHTML = 
+       <div class="row-header">
+           <input type="text" placeholder="Writer" />
+           <input type="text" placeholder="Publisher" />
+           <input type="text" placeholder="Genre" />
+           <button class="delete-row-btn" onclick="deleteRow(this)">Delete Row</button>
+           <button class="add-book-btn" onclick="triggerFileInput(${rowIndex})">Add Book</button>
+           <input type="file" id="fileInput${rowIndex}" accept="application/pdf" style="display: none;" onchange="addBookToRow(${rowIndex}, this.files[0])" />
+       </div>
+       <div class="book-list" id="bookList${rowIndex}"></div>
+   ;
+
+   shelfContainer.appendChild(rowDiv);
+   updateRowSelector(rowIndex);
+}
+
+function deleteRow(btn) {
+   const row = btn.closest('.shelf');
+   const shelfContainer = document.getElementById('shelfContainer');
+   const rowIndex = Array.from(shelfContainer.children).indexOf(row);
+
+   row.remove();
+   updateRowSelector(rowIndex, true); // Remove from selector
+
+   // Re-index remaining rows in the selector
+   Array.from(shelfContainer.children).forEach((shelf, index) => {
+       const option = document.createElement('option');
+       option.value = index;
+       option.text = Row ${index + 1};
+       document.getElementById('rowSelector').appendChild(option);
+   });
+}
+
+function updateRowSelector(selectedRowIndex, remove = false) {
+   const rowSelector = document.getElementById('rowSelector');
+   if (remove) {
+       rowSelector.remove(selectedRowIndex);
+   } else {
+       const option = document.createElement('option');
+       option.value = selectedRowIndex;
+       option.text = Row ${selectedRowIndex + 1};
+       rowSelector.add(option);
+   }
+}
+
+// Add book functionality
+function addBookToRow(rowIndex, file) {
+   if (file instanceof File) {
+       const bookData = {
+           title: file.name,
+           pdfUrl: URL.createObjectURL(file),
+       };
+
+       const bookList = document.getElementById(bookList${rowIndex});
+       const bookDiv = document.createElement('div');
+       bookDiv.classList.add('book');
+       bookDiv.innerHTML = <img src="https://via.placeholder.com/100x150.png?text=PDF" alt="${bookData.title}" />;
+       bookDiv.onclick = function () {
+           openBook(bookData.pdfUrl);
+       };
+       bookList.appendChild(bookDiv);
+
+       // Send the data to the backend using Fetch API
+       fetch('backend/save-book.php', {
+           method: 'POST',
+           headers: {
+               'Content-Type': 'application/json',
+           },
+           body: JSON.stringify({
+               title: bookData.title,
+               pdfUrl: bookData.pdfUrl,
+               shelfRow: rowIndex,
+               userId: 1 // Replace with dynamic user ID
+           }),
+       })
+       .then(response => response.json())
+       .then(result => {
+           console.log('Book saved:', result);
+       })
+       .catch(error => {
+           console.error('Error saving book:', error);
+       });
+   }
+}
+
+function triggerFileInput(rowIndex) {
+   const fileInput = document.getElementById(fileInput${rowIndex});
+   fileInput.click(); // Programmatically click the file input
+}
+
+// Open PDF viewer
+function openBook(pdfUrl) {
+   const modalBackdrop = document.getElementById('modalBackdrop');
+   const pdfViewer = document.getElementById('pdfViewer');
+   modalBackdrop.style.display = 'block';
+   pdfViewer.style.display = 'flex';
+
+   const loadingTask = pdfjsLib.getDocument(pdfUrl);
+   loadingTask.promise.then(function(pdf) {
+       pdfDoc = pdf;
+       totalPages = pdf.numPages;
+
+       const pdfControls = document.getElementById('pdfControls');
+       pdfControls.style.display = totalPages > 1 ? 'flex' : 'none';
+
+       document.getElementById('pageInfo').textContent = Page ${Math.ceil(pageNum / 2)} of ${Math.ceil(totalPages / 2)};
+       renderPages(pageNum);
+       updatePaginationButtons();
+   });
+}
+
+function renderPages(num) {
+   renderPage(num, canvasLeft, ctxLeft);
+   if (num + 1 <= totalPages) {
+       renderPage(num + 1, canvasRight, ctxRight);
+   } else {
+       ctxRight.clearRect(0, 0, canvasRight.width, canvasRight.height);
+   }
+}
+
+function renderPage(num, canvas, ctx) {
+   pdfDoc.getPage(num).then(function(page) {
+       const viewport = page.getViewport({ scale: 1 });
+       const modalWidth = document.getElementById('pdfViewer').clientWidth;
+       const maxPageWidth = modalWidth - 20; // Adjust width for margins
+       const scaleFactor = maxPageWidth / viewport.width;
+
+       scale = scaleFactor;
+       const scaledViewport = page.getViewport({ scale: scale });
+       const outputScale = window.devicePixelRatio || 1;
+
+       canvas.width = Math.floor(scaledViewport.width * outputScale);
+       canvas.height = Math.floor(scaledViewport.height * outputScale);
+       canvas.style.width = ${scaledViewport.width}px;
+       canvas.style.height = ${scaledViewport.height}px;
+
+       const renderContext = {
+           canvasContext: ctx,
+           viewport: scaledViewport,
+           transform: [outputScale, 0, 0, outputScale, 0, 0],
+       };
+
+       page.render(renderContext);
+   });
+}
+
+function updatePaginationButtons() {
+   const prevButton = document.getElementById('prevPageBtn');
+   const nextButton = document.getElementById('nextPageBtn');
+
+   prevButton.disabled = pageNum <= 1;
+   nextButton.disabled = pageNum + 1 >= totalPages;
+
+   document.getElementById('pageInfo').textContent = Page ${Math.ceil(pageNum / 2)} of ${Math.ceil(totalPages / 2)};
+}
+
+function prevPage() {
+   if (pageNum <= 1) return;
+   pageNum -= 2;
+   renderPages(pageNum);
+   updatePaginationButtons();
+}
+
+function nextPage() {
+   if (pageNum + 2 > totalPages) return;
+   pageNum += 2;
+   renderPages(pageNum);
+   updatePaginationButtons();
+}
+
+function zoomIn() {
+   scale += 0.1;
+   renderPages(pageNum);
+}
+
+function zoomOut() {
+   if (scale <= 0.5) return;
+   scale -= 0.1;
+   renderPages(pageNum);
+}
+
+function closePDF() {
+   const modalBackdrop = document.getElementById('modalBackdrop');
+   const pdfViewer = document.getElementById('pdfViewer');
+   modalBackdrop.style.display = 'none';
+   pdfViewer.style.display = 'none';
+   ctxLeft.clearRect(0, 0, canvasLeft.width, canvasLeft.height);
+   ctxRight.clearRect(0, 0, canvasRight.width, canvasRight.height);
+   pageNum = 1;
+}
+
+function clearBooks() {
+   const shelfContainer = document.getElementById('shelfContainer');
+   while (shelfContainer.firstChild) {
+       shelfContainer.removeChild(shelfContainer.firstChild);
+   }
+   updateRowSelector(); // Reset row selector
+}
+
+// Initialize with default rows
+for (let i = 0; i < 3; i++) {
+   addNewRow();
+}
+</script>
+</body>
+</html>

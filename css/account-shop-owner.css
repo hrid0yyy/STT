@@ -1,0 +1,39 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.inner-account-context{
+    /* border:1px solid green; */
+}
+.shop-details-container{
+    margin-top: 3.5rem;;
+    width:75%;
+    /* border:1px solid red; */
+}
+.flex{
+    /* border: 1px solid red; */
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    
+}
+.flex input{
+    width: 70%;
+}
+.flex-text{
+    font-weight: bolder;
+}
+.save-btn{
+    /* border: 1px solid red; */
+    padding:10px 25px;
+    color:#ffffff;
+    background-color: #62ab00;
+    border-radius:3px;
+}
+.btn-div{
+    width: 50%;
+    /* border:1px solid green; */
+    display: flex;
+    justify-content: flex-end;
+}

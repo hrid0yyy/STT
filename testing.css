@@ -1,0 +1,275 @@
+
+
+.bookshelf-container {
+    /* border:1px solid red; */
+    width: 90%;
+    /* max-width: 1200px; */
+    background-color: #d8a45c;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.4);
+   margin-left: 3rem;
+    
+}
+
+.shelf {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    margin-bottom: 30px;
+    background-color: #ba8c52;
+    border-radius: 10px;
+    box-shadow: inset 0px -5px 10px rgba(0, 0, 0, 0.5);
+    margin-top: 10px;
+}
+
+.book-list {
+    display: flex;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    white-space: nowrap; /* Prevent line breaks */
+    margin-top: 10px; /*Space between input fields and book display*/
+    padding: 10px 0; /* Add some vertical padding */
+    width: 100%; /* Ensure it takes the full width */
+}
+
+.book {
+    width: 70px; /* Smaller width */
+    height: 100px; /* Smaller height */
+    background-color: #fff;
+    margin: 5px; /* Reduced margin */
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
+    perspective: 500px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    transition: transform 0.3s ease;
+    flex-shrink: 0; /* Prevent shrinking to allow scrolling */
+}
+
+.book img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.book:hover {
+    transform: rotateY(10deg);
+}
+
+.pdf-viewer {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-height: 80%;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    display: none;
+    flex-direction: column;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    z-index: 999;
+}
+
+.pdf-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pdf-viewer canvas {
+    width: 100%;
+    height: auto;
+    margin: 10px 0;
+}
+
+.pdf-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pdf-controls button {
+    background-color: #3498db;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+.pdf-controls button:hover {
+    background-color: #2980b9;
+}
+
+.page-info {
+    color: black;
+    font-size: 16px;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 10px 15px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.close-button:hover {
+    background-color: #c0392b;
+}
+
+.row-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.row-header input {
+    margin-right: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    flex-grow: 1;
+}
+
+.delete-row-btn {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.delete-row-btn:hover {
+    background-color: #c0392b;
+}
+
+.add-book-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.add-book-btn:hover {
+    background-color: #218838;
+}
+
+.add-book-controls {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.add-book-controls select {
+    margin-right: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Hide the add book controls */
+.add-book-controls {
+    display: none; /* Hides the controls */
+}
+
+/* Custom Horizontal Scrollbar for Book List */
+.book-list {
+    display: flex;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    white-space: nowrap; /* Prevent line breaks */
+    margin-top: 10px; /* Space between input fields and book display */
+    padding: 10px 0; /* Add some vertical padding */
+    width: 100%; /* Ensure it takes the full width */
+    scrollbar-width: thin; /* For Firefox */
+    scrollbar-color: #3498db #f0f0f0; /* For Firefox */
+}
+
+.book-list::-webkit-scrollbar {
+    height: 8px; /* Set the height of the scrollbar */
+}
+
+.book-list::-webkit-scrollbar-track {
+    background: #f0f0f0; /* Background color of the scrollbar track */
+    border-radius: 10px; /* Round the corners */
+}
+
+.book-list::-webkit-scrollbar-thumb {
+    background-color: #3498db; /* Color of the scrollbar thumb */
+    border-radius: 10px; /* Round the corners */
+}
+
+.book-list::-webkit-scrollbar-thumb:hover {
+    background-color: #2980b9; /* Darker color on hover */
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .book {
+        width: 80px; /* Smaller width for mobile */
+        height: 120px; /* Smaller height for mobile */
+    }
+
+    .pdf-viewer {
+        width: 95%;
+    }
+
+    .pdf-controls button {
+        padding: 8px 12px;
+    }
+
+    .close-button {
+        padding: 8px 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .shelf {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .book {
+        width: 90%;
+        height: auto;
+    }
+}
+.profile-pic{
+    width: 50px;
+    height: 50px;
+}
+.login-block{
+    /* border: 1px solid red; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap:1rem;
+}
