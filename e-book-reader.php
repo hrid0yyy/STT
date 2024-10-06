@@ -574,7 +574,7 @@
             </section>
             <section class="account-context">
                 <div class="inner-account-context">
-                    <div class="tablist">
+                    <div class="tablist" style="border:none;">
                         <div class="profile">
                             <div class="dp">
                                 <img src="image/dashboard/<?php echo $reader['profile_pic']; ?>
@@ -618,15 +618,15 @@
                                         <span class="tab-title">PURCHASE HISTORY</span>
                                     </a>
                                 </div>
-                            <div class="tab-divs ">
+                            <div class="tab-divs active">
                                 <a href="e-book-reader.php"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                                     <path d="M2 10V11H3.793L1 13.793L1.707 14.5L4.5 11.707V13.5H5.5V10H2ZM9.5 5H13V6H9.5V5ZM9.5 7.5H13V8.5H9.5V7.5ZM9.5 10H13V11H9.5V10Z" fill="black"/>
                                     <path d="M14 2.5H2C1.73478 2.5 1.48043 2.60536 1.29289 2.79289C1.10536 2.98043 1 3.23478 1 3.5V8.5H2V3.5H7.5V13.5H14C14.2652 13.5 14.5196 13.3946 14.7071 13.2071C14.8946 13.0196 15 12.7652 15 12.5V3.5C15 3.23478 14.8946 2.98043 14.7071 2.79289C14.5196 2.60536 14.2652 2.5 14 2.5ZM8.5 12.5V3.5H14L14.001 12.5H8.5Z" fill="black"/>
                                   </svg><span class="tab-title">E-BOOK READING</span> </a>
                             </div>
                          
-                            <div class="tab-divs active">
-                                <a href="bookshelf-reader.php"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <div class="tab-divs">
+                                <a href="book-shelf.php"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                                     <path d="M5.28125 1.78125V15.2188H7.71875V1.78125H5.28125ZM0.78125 3.28125V9.21875H2.21875V3.28125H0.78125ZM5.71875 4H6.28125V14H5.71875V4ZM9.74141 4.24031L8.32653 4.49419L10.2586 15.2597L11.6734 15.0058L9.74141 4.24031ZM2.78125 4.78125V13.2188H4.71875V4.78125H2.78125ZM11.5782 5.6775L10.7159 6.04541L10.8876 6.44781L11.7499 6.07991L11.5782 5.6775ZM11.9707 6.59728L11.1083 6.96516L11.28 7.36756L12.1422 6.99969L11.9706 6.59728H11.9707ZM12.363 7.51709L11.5007 7.88491L14.6155 15.1858L15.4778 14.8179L12.363 7.51709ZM0.78125 9.78125V10.7188H2.21875V9.78125H0.78125ZM6.71875 10H7.28125V14H6.71875V10ZM0.78125 11.2812V15.2188H2.21875V11.2812H0.78125ZM2.78125 13.7812V15.2188H4.71875V13.7812H2.78125Z" fill="black"/>
                                   </svg><span class="tab-title">VIRTUAL BOOKSHELF</span> </a>
                             </div>

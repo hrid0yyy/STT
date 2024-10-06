@@ -15,7 +15,7 @@ function totalnotification($reader_id){
     join readers as requestee on eb_requestee.reader_id = requestee.reader_auto_id
     join books as requestee_books on eb_requestee.book_id = requestee_books.book_id
     where (requestee.reader_auto_id = ? and requestee_status = 'unseen') OR
-    	  (requestor.reader_auto_id = ? and requestor_status = 'unseen')";
+    	  (requestor.reader_auto_id = ? and requestor_status = 'unseen' and status != 'pending')";
 
             // Prepare the statement
             if ($stmt = $conn->prepare($sql)) {

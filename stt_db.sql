@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 05, 2024 at 02:30 PM
+-- Generation Time: Oct 06, 2024 at 07:36 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -75,7 +75,16 @@ CREATE TABLE `billing` (
 --
 
 INSERT INTO `billing` (`billing_id`, `first_name`, `last_name`, `email`, `phone`, `address`, `purchase_id`, `town`, `status`) VALUES
-(6, 'hridoy', 'ahmed', 'hridoyahmedddd@gmail.com', ' 012348765487', 'shahjadpur', 13, 'dhaka', 'Processing');
+(6, 'hridoy', 'ahmed', 'hridoyahmedddd@gmail.com', ' 012348765487', 'shahjadpur', 13, 'dhaka', 'Processing'),
+(7, 'United', 'University', 'hridoyahmedddd@gmail.com', ' 012348765487', 'shahjadpur', 14, 'dhaka', 'Processing'),
+(8, 'United', 'University', 'hridoyahmedddd@gmail.com', ' 012348765487', 'shahjadpur', 15, 'dhaka', 'Processing'),
+(9, 'United', 'University', 'hridoyahmedddd@gmail.com', ' 012348765487', 'shahjadpur', 16, 'dhaka', 'Processing'),
+(11, 'hridoy', 'ahmed', 'hridoyahmedddd@gmail.com', NULL, 'shahjadpur', 18, 'dhaka', 'Processing'),
+(12, 'hridoy', 'ahmed', 'hridoyahmedddd@gmail.com', NULL, 'shahjadpur', 19, 'dhaka', 'Processing'),
+(13, 'hridoy', 'ahmed', 'hridoyahmedddd@gmail.com', ' 012348765487', 'shahjadpur', 20, 'dhaka', 'Processing'),
+(14, 'hridoy', 'ahmed', 'hridoyahmedddd@gmail.com', ' 012348765487', 'shahjadpur', 21, 'dhaka', 'Processing'),
+(15, 'hridoy', 'ahmed', 'hridoyahmedddd@gmail.com', ' 012348765487', 'shahjadpur', 22, 'dhaka', 'Processing'),
+(16, 'hridoy', 'ahmed', 'hridoyahmedddd@gmail.com', ' 012348765487', 'shahjadpur', 23, 'dhaka', 'Processing');
 
 -- --------------------------------------------------------
 
@@ -137,7 +146,7 @@ INSERT INTO `books` (`book_id`, `title`, `genre`, `isbn`, `description`, `public
 (45, 'সহিহভাবে কুরআন শিক্ষা তাজওইদ', 'Islamic', '9789843435507', 'পৃথিবীর সবচে শ্রেষ্ঠ গ্রন্থ হলো পবিত্র কুরআনুল কারীম। আর এই গ্রন্থ সহিহ ও শুদ্ধভাবে পড়ার মাধ্যম হলো তাজওইদ সম্পর্কে অবগত থাকা।', '2023-02-23', 'Bangla', '2024-09-19 12:47:39', 'সহিহভাবে কুরআন শিক্ষা তাজওইদ.jpeg', NULL),
 (46, 'সিরাজদ্দৌলা ', 'Drama', '9788129509505', 'নবাব মির্জা মুহম্মদ সিরাজউদ্দৌলা (ফার্সি: مرزا محمد سراج الدوله; ১৭৩৩ – ২ জুলাই ১৭৫৭) ছিলেন বাংলা-বিহার-ওড়িশার শেষ স্বাধীন নবাব। তিনি ১৭৫৬ থেকে ১৭৫৭ সাল পর্যন্ত রাজত্ব করেছিলেন। তাঁর রাজত্বের সমাপ্তির পর বাংলা এবং পরবর্তীতে প্রায় সমগ্র ভারতীয় উপমহাদেশের উপর ইস্ট ইন্ডিয়া কোম্পানির শাসনের সূচনা হয়।', '1965-11-12', 'Bangla', '2024-09-19 12:58:25', 'সিরাজদ্দৌলা.jpeg', NULL),
 (47, 'রক্তাক্ত প্রান্তর', 'Drama', '9789848899202', 'যে কাহিনীর ভিত্তিতে মুনীর চৌধুরীর \'রক্তাক্ত প্রান্তর\' লেখা. কায়কোবাদের বক্তব্য থেকে দেখা যাচ্ছে, একটা চ্যালেঞ্জ নিয়েই তিনি কাব্য-সাধনায় যুক্ত হয়েছিলেন।', '1991-06-19', 'Bangla', '2024-09-19 12:58:25', 'রক্তাক্ত প্রান্তর.jpg', NULL),
-(48, 'রক্তকরবী ', 'Drama', '9848261591', 'রবীন্দ্রনাথের তত্ত্ব-আশ্রয়ী সাংকেতিক নাটকগুলোর মধ্যে \'রক্তকরবী\' অন্যতম। \'রক্তকবরী\' প্রকাশিত হয় ১৯১৬ সালে। এটি তাঁর এক অসাধারণ প্রতীক নাটক, বিশ্বের যে কোন একখানি শ্রেষ্ঠ প্রতীক নাটকের সমকক্ষ। এত রবীন্দ্রনাথ আধুনিক সমস্যার আর একটি উৎকট দিককে একটি অপরূপ প্রতীকতার মধ্যদিয়ে ব্যক্ত করেছেন।', '1926-09-16', 'Bangla', '2024-09-19 13:13:04', 'রক্তকরবী.jpeg', NULL),
+(48, 'রক্তকরবী ', 'Drama', '9848261591', 'রবীন্দ্রনাথের তত্ত্ব-আশ্রয়ী সাংকেতিক নাটকগুলোর মধ্যে \'রক্তকরবী\' অন্যতম। \'রক্তকবরী\' প্রকাশিত হয় ১৯১৬ সালে। এটি তাঁর এক অসাধারণ প্রতীক নাটক, বিশ্বের যে কোন একখানি শ্রেষ্ঠ প্রতীক নাটকের সমকক্ষ। এত রবীন্দ্রনাথ আধুনিক সমস্যার আর একটি উৎকট দিককে একটি অপরূপ প্রতীকতার মধ্যদিয়ে ব্যক্ত করেছেন।', '1926-09-16', 'Bangla', '2024-09-19 13:13:04', 'রক্তকরবী.png', NULL),
 (49, 'সালাহ উদ্দীন\'স মাস্টার ক্লাস', 'Sports', '9789849741183', ' ২৫ বছরের কোচিং ক্যারিয়ারে মোহাম্মদ সালাউদ্দিন কাজ করেছেন তিন প্রজন্মের সঙ্গে।', '2023-06-21', 'Bangla', '2024-09-19 13:13:04', 'সালাহ উদ্দীন\'স মাস্টার ক্লাস.jpeg', NULL),
 (50, 'ডোপামিন ডিটক্স', 'Motivational', '9789849642688', 'যেসব গুরুত্বপূর্ণ বিষয় জীবনকে উন্নত করতে পারে, সেগুলো কি আপনার ভেতরে কোনো উত্তেজনা সৃষ্টি করে না? যদি ব্যাপারটা এমনই হয়, তাহলে সম্ভবতঃ আপনার ডোপামিন ডিটক্সের প্রয়োজন। ', '2023-07-25', 'Bangla', '2024-09-19 13:13:04', 'ডোপামিন ডিটক্স.jpg', NULL);
 
@@ -174,6 +183,31 @@ INSERT INTO `bookshelf_pdfs` (`id`, `user_id`, `book_title`, `writer`, `genre`, 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `book_advertisements`
+--
+
+CREATE TABLE `book_advertisements` (
+  `ad_id` int(11) NOT NULL,
+  `book_id` int(11) NOT NULL,
+  `shop_owner_id` int(11) NOT NULL,
+  `discount_percentage` int(11) DEFAULT NULL,
+  `advertising_start_date` datetime NOT NULL DEFAULT current_timestamp(),
+  `advertising_end_date` datetime DEFAULT NULL,
+  `status` enum('active','expired') DEFAULT 'active'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `book_advertisements`
+--
+
+INSERT INTO `book_advertisements` (`ad_id`, `book_id`, `shop_owner_id`, `discount_percentage`, `advertising_start_date`, `advertising_end_date`, `status`) VALUES
+(2, 8, 31, 10, '2024-10-05 21:28:00', '2024-10-07 21:29:00', 'active'),
+(3, 2, 10049, 10, '2024-10-05 21:35:00', '2024-10-08 21:35:00', 'active'),
+(4, 1, 10049, 30, '2024-10-06 01:06:00', '2024-10-07 01:06:00', 'active');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `book_publishers`
 --
 
@@ -201,27 +235,31 @@ CREATE TABLE `book_shopowners` (
 --
 
 INSERT INTO `book_shopowners` (`book_id`, `shop_owner_id`, `stock_quantity`, `price`, `quality`) VALUES
+(1, 31, 48, 800.00, 'Offset Paper'),
 (1, 31, 98, 500.00, 'White Print'),
 (1, 36, 40, 500.00, 'Paperback'),
+(1, 10048, 48, 448.00, 'Yellow Print'),
+(1, 10049, 95, 586.00, 'Paperback'),
 (2, 31, 78, 500.00, 'White Print'),
 (2, 36, 100, 500.00, 'Paperback'),
+(2, 10049, 57, 478.00, 'Yellow Print'),
 (3, 31, 98, 500.00, 'White Print'),
 (3, 36, 10, 500.00, 'Offset Paper'),
 (4, 31, 100, 400.00, 'Yellow Print'),
-(5, 31, 19, 500.00, 'Yellow Print'),
-(6, 31, 60, 100.00, 'White Print'),
+(5, 31, 18, 500.00, 'Yellow Print'),
+(6, 31, 56, 100.00, 'White Print'),
 (7, 31, 98, 100.00, 'Paperback'),
 (8, 31, 10, 200.00, 'Paperback'),
 (10, 31, 10, 100.00, 'Paperback'),
-(11, 31, 10, 150.00, 'Paperback'),
-(14, 31, 10, 200.00, 'Paperback'),
-(15, 31, 10, 350.00, 'Paperback'),
+(11, 31, 9, 150.00, 'Paperback'),
+(14, 31, 9, 200.00, 'Paperback'),
+(15, 31, 9, 350.00, 'Paperback'),
 (16, 31, 10, 150.00, 'Paperback'),
 (17, 31, 10, 300.00, 'Paperback'),
 (18, 31, 10, 250.00, 'Paperback'),
 (19, 31, 10, 150.00, 'Paperback'),
-(20, 31, 10, 150.00, 'Paperback'),
-(21, 31, 10, 150.00, 'Paperback'),
+(20, 31, 8, 150.00, 'Paperback'),
+(21, 31, 8, 150.00, 'Paperback'),
 (22, 31, 10, 150.00, 'Paperback');
 
 -- --------------------------------------------------------
@@ -251,6 +289,13 @@ CREATE TABLE `borrowing` (
   `is_returned` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `borrowing`
+--
+
+INSERT INTO `borrowing` (`borrowing_id`, `reader_id`, `shop_owner_id`, `book_id`, `borrow_date`, `return_date`, `is_returned`) VALUES
+(54, 19, 31, 1, '2024-10-05', NULL, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -268,7 +313,7 @@ CREATE TABLE `borrow_bookavailability` (
 --
 
 INSERT INTO `borrow_bookavailability` (`book_id`, `shop_owner_id`, `available_copies`) VALUES
-(1, 31, 124),
+(1, 31, 123),
 (2, 36, 6),
 (3, 31, 3);
 
@@ -292,8 +337,7 @@ CREATE TABLE `cart` (
 
 INSERT INTO `cart` (`cart_id`, `book_id`, `reader_id`, `shop_owner_id`, `amount`) VALUES
 (12, 3, 30, 36, 6),
-(13, 2, 30, 31, 1),
-(46, 6, 19, 31, 2);
+(13, 2, 30, 31, 1);
 
 -- --------------------------------------------------------
 
@@ -423,6 +467,21 @@ INSERT INTO `membership` (`reader_id`, `type`, `date`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `payment`
+--
+
+CREATE TABLE `payment` (
+  `payment_id` int(11) NOT NULL,
+  `cart_id` int(11) NOT NULL,
+  `payment_method` varchar(50) NOT NULL,
+  `payment_status` enum('Pending','Paid','Failed') DEFAULT 'Pending',
+  `payment_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `transaction_id` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `publication_request`
 --
 
@@ -490,7 +549,17 @@ CREATE TABLE `purchase` (
 --
 
 INSERT INTO `purchase` (`purchase_id`, `reader_id`, `book_id`, `shop_owner_id`, `quantity`, `purchase_date`) VALUES
-(13, 19, 6, 31, 1, '2024-09-28 18:56:50');
+(13, 19, 6, 31, 1, '2024-09-28 18:56:50'),
+(14, 19, 6, 31, 2, '2024-10-06 22:03:11'),
+(15, 19, 20, 31, 1, '2024-10-06 22:03:11'),
+(16, 19, 21, 31, 2, '2024-10-06 22:03:11'),
+(17, 19, 20, 31, 1, '2024-10-06 22:21:01'),
+(18, 19, 14, 31, 1, '2024-10-06 23:24:50'),
+(19, 19, 11, 31, 1, '2024-10-06 23:24:50'),
+(20, 19, 15, 31, 1, '2024-10-06 23:29:19'),
+(21, 19, 5, 31, 1, '2024-10-06 23:30:12'),
+(22, 19, 6, 31, 1, '2024-10-06 23:31:58'),
+(23, 19, 6, 31, 1, '2024-10-06 23:33:43');
 
 -- --------------------------------------------------------
 
@@ -632,7 +701,9 @@ CREATE TABLE `shopowners` (
 
 INSERT INTO `shopowners` (`shop_owner_id`, `shop_name`, `owner_name`, `phone_number`, `address`, `city`, `postal_code`, `email`) VALUES
 (31, 'Book shop', 'zoro', '01552354505', 'notunbazar', 'Dhaka', '1212', 'bs@gmail.com'),
-(36, 'UIU BOOK SHOP', 'Kashem Sir', '123456789', '100 ft', 'Dhaka', NULL, NULL);
+(36, 'UIU BOOK SHOP', 'Kashem Sir', '123456789', '100 ft', 'Dhaka', NULL, NULL),
+(10048, '', '', NULL, NULL, NULL, NULL, NULL),
+(10049, '', '', NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -663,7 +734,9 @@ INSERT INTO `users` (`user_id`, `username`, `email`, `password_hash`, `user_type
 (36, 'UIU book shop', 'uiu@gmail.com', '$2y$10$6wg/BnmKm9DJ8cAJ2K7XqOoJliYtZDrm/dfQ9izL/TvxRUH9xJnPq', 'ShopOwner', '2024-09-26 10:36:12'),
 (40, 'arafat', 'arafat@gmail.com', '$2y$10$Pjl.Q2rr8lud96goaR9Yfu36gyGFg3vDNIwOfl60E01clKaMk3hya', 'Reader', '2024-09-28 15:06:40'),
 (41, 'bambola', 'writer@gmail.com', '$2y$10$Gq9CZ5ZuP5Lb/RWv7U0W.u2KdowIt3B6r47gbAG9PKgfONdpQl9Oa', 'Writer', '2024-09-28 15:21:34'),
-(10047, 'asdasd', 'asd@gmail.com', '$2y$10$orahNXumh8So6iKSMKcX.uaMTf47VlpGS9x/3nMvHUxSWacyB4CXG', 'Writer', '2024-09-28 15:36:49');
+(10047, 'asdasd', 'asd@gmail.com', '$2y$10$orahNXumh8So6iKSMKcX.uaMTf47VlpGS9x/3nMvHUxSWacyB4CXG', 'Writer', '2024-09-28 15:36:49'),
+(10048, 'shop', 'shop@mail.com', '$2y$10$lsKxqIuJGgmvxU8QWTFY3OxlxyN9Yw2MF.rVjQgwtojYM43bilO2q', 'ShopOwner', '2024-10-05 15:03:49'),
+(10049, 'shop1', 'shop@gmail.com', '$2y$10$zTX3nYdpKCZtUI7oYCxp.Oa.WU5D10wzGPVnBw2hRT3Z4wkOW6Y0e', 'ShopOwner', '2024-10-05 15:32:44');
 
 --
 -- Triggers `users`
@@ -852,6 +925,14 @@ ALTER TABLE `bookshelf_pdfs`
   ADD KEY `genre_id` (`genre_id`);
 
 --
+-- Indexes for table `book_advertisements`
+--
+ALTER TABLE `book_advertisements`
+  ADD PRIMARY KEY (`ad_id`),
+  ADD KEY `book_id` (`book_id`),
+  ADD KEY `shop_owner_id` (`shop_owner_id`);
+
+--
 -- Indexes for table `book_publishers`
 --
 ALTER TABLE `book_publishers`
@@ -931,6 +1012,13 @@ ALTER TABLE `genre`
 --
 ALTER TABLE `membership`
   ADD PRIMARY KEY (`reader_id`);
+
+--
+-- Indexes for table `payment`
+--
+ALTER TABLE `payment`
+  ADD PRIMARY KEY (`payment_id`),
+  ADD KEY `cart_id` (`cart_id`);
 
 --
 -- Indexes for table `publication_request`
@@ -1027,7 +1115,7 @@ ALTER TABLE `authors`
 -- AUTO_INCREMENT for table `billing`
 --
 ALTER TABLE `billing`
-  MODIFY `billing_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `billing_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `books`
@@ -1042,16 +1130,22 @@ ALTER TABLE `bookshelf_pdfs`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
+-- AUTO_INCREMENT for table `book_advertisements`
+--
+ALTER TABLE `book_advertisements`
+  MODIFY `ad_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `borrowing`
 --
 ALTER TABLE `borrowing`
-  MODIFY `borrowing_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `borrowing_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `exchange_books`
@@ -1078,6 +1172,12 @@ ALTER TABLE `genre`
   MODIFY `genre_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- AUTO_INCREMENT for table `payment`
+--
+ALTER TABLE `payment`
+  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `publication_request`
 --
 ALTER TABLE `publication_request`
@@ -1087,7 +1187,7 @@ ALTER TABLE `publication_request`
 -- AUTO_INCREMENT for table `purchase`
 --
 ALTER TABLE `purchase`
-  MODIFY `purchase_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `purchase_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `reviews`
@@ -1099,7 +1199,7 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10048;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10050;
 
 --
 -- AUTO_INCREMENT for table `user_bookshelf`
@@ -1129,6 +1229,13 @@ ALTER TABLE `books`
 ALTER TABLE `bookshelf_pdfs`
   ADD CONSTRAINT `bookshelf_pdfs_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE,
   ADD CONSTRAINT `bookshelf_pdfs_ibfk_2` FOREIGN KEY (`genre_id`) REFERENCES `genre` (`genre_id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `book_advertisements`
+--
+ALTER TABLE `book_advertisements`
+  ADD CONSTRAINT `book_advertisements_ibfk_1` FOREIGN KEY (`book_id`) REFERENCES `books` (`book_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `book_advertisements_ibfk_2` FOREIGN KEY (`shop_owner_id`) REFERENCES `shopowners` (`shop_owner_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `book_publishers`
@@ -1199,6 +1306,12 @@ ALTER TABLE `exchange_req`
 --
 ALTER TABLE `membership`
   ADD CONSTRAINT `membership_ibfk_1` FOREIGN KEY (`reader_id`) REFERENCES `readers` (`reader_auto_id`);
+
+--
+-- Constraints for table `payment`
+--
+ALTER TABLE `payment`
+  ADD CONSTRAINT `payment_ibfk_1` FOREIGN KEY (`cart_id`) REFERENCES `cart` (`cart_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `publication_request`

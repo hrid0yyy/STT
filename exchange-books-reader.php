@@ -609,7 +609,7 @@
             </section>
             <section class="account-context">
                 <div class="inner-account-context">
-                    <div class="tablist">
+                    <div class="tablist" style="border:none;">
                         <div class="profile">
                             <div class="dp">
                                 <img src="image/dashboard/<?php echo $reader['profile_pic']; ?>

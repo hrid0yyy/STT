@@ -124,21 +124,32 @@ if(isset($_POST['exchange_btn'])){
 
 
 // SQL query to insert data into exchange_requests table with properly quoted string values
-$sql = "INSERT INTO exchange_req(requestor_exchange_id, requestee_exchange_id) 
-        VALUES ('$requestor_exchange_id', '$requestee_exchange_id')";
-
-     if ($conn->query($sql) === TRUE) {
+try {
+    $sql = "INSERT INTO exchange_req (requestor_exchange_id, requestee_exchange_id) 
+            VALUES ('$requestor_exchange_id', '$requestee_exchange_id')";
+    
+    if ($conn->query($sql) === TRUE) {
         echo "Exchange request successfully submitted.";
         header("Location: index.php");
     } else {
-        // Print detailed error message if query fails
+        // Show the custom error message if query fails
         echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
-        <strong>Error!</strong> You already requested for this book please wait for the owner response!
-        <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-            <span aria-hidden='true'>&times;</span>
-        </button>
-      </div>";
+            <strong>Error!</strong> You already requested this book. Please wait for the owner's response!
+            <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                <span aria-hidden='true'>&times;</span>
+            </button>
+          </div>";
     }
+} catch (mysqli_sql_exception $e) {
+    // This will catch the duplicate entry error or any other SQL error
+    echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+            <strong>Error!</strong> You already requested this book. Please wait for the owner's response!
+            <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                <span aria-hidden='true'>&times;</span>
+            </button>
+          </div>";
+}
+    
     }
 
 }

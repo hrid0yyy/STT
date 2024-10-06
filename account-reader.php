@@ -592,7 +592,7 @@
             </section>
             <section class="account-context">
                 <div class="inner-account-context">
-                    <div class="tablist">
+                    <div class="tablist" style="border:none;">
                     <div class="profile">
                             <div class="dp">
                                 <img src="image/dashboard/<?php echo $reader['profile_pic']; ?>" alt="">
@@ -644,7 +644,7 @@
                             </div>
                             
                             <div class="tab-divs ">
-                                <a href="bookshelf-reader.php"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <a href="book-shelf.php"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                                     <path d="M5.28125 1.78125V15.2188H7.71875V1.78125H5.28125ZM0.78125 3.28125V9.21875H2.21875V3.28125H0.78125ZM5.71875 4H6.28125V14H5.71875V4ZM9.74141 4.24031L8.32653 4.49419L10.2586 15.2597L11.6734 15.0058L9.74141 4.24031ZM2.78125 4.78125V13.2188H4.71875V4.78125H2.78125ZM11.5782 5.6775L10.7159 6.04541L10.8876 6.44781L11.7499 6.07991L11.5782 5.6775ZM11.9707 6.59728L11.1083 6.96516L11.28 7.36756L12.1422 6.99969L11.9706 6.59728H11.9707ZM12.363 7.51709L11.5007 7.88491L14.6155 15.1858L15.4778 14.8179L12.363 7.51709ZM0.78125 9.78125V10.7188H2.21875V9.78125H0.78125ZM6.71875 10H7.28125V14H6.71875V10ZM0.78125 11.2812V15.2188H2.21875V11.2812H0.78125ZM2.78125 13.7812V15.2188H4.71875V13.7812H2.78125Z" fill="black"/>
                                   </svg><span class="tab-title">VIRTUAL BOOKSHELF</span> </a>
                             </div>
@@ -657,7 +657,144 @@
                     <!-- my account settings start  -->
                    
                     <section class="my-account-settings-container">
-                    
+                    <form method="POST">
+                        <div class="upload-container">
+                            <input type="file" id="fileInput" name="profile_pic" accept="image/*" hidden>
+                            <div class="upload-div" id="uploadDiv">
+                              <img id="previewImage" src="image/dashboard/<?php echo $reader['profile_pic'];  ?>" alt="Default Image">
+                              <span class="upload-icon">
+                                <div class="half-circle">
+                                    <span><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 35 35" fill="none">
+                                        <path d="M28.4375 8.20312H24.3537L22.3289 5.16523C22.2791 5.09051 22.2116 5.02922 22.1324 4.98678C22.0532 4.94433 21.9648 4.92204 21.875 4.92188H13.125C13.0352 4.92204 12.9468 4.94433 12.8676 4.98678C12.7884 5.02922 12.7209 5.09051 12.6711 5.16523L10.6436 8.20312H6.5625C5.8373 8.20312 5.1418 8.49121 4.629 9.004C4.11621 9.5168 3.82813 10.2123 3.82812 10.9375V26.25C3.82813 26.9752 4.11621 27.6707 4.629 28.1835C5.1418 28.6963 5.8373 28.9844 6.5625 28.9844H28.4375C29.1627 28.9844 29.8582 28.6963 30.371 28.1835C30.8838 27.6707 31.1719 26.9752 31.1719 26.25V10.9375C31.1719 10.2123 30.8838 9.5168 30.371 9.004C29.8582 8.49121 29.1627 8.20312 28.4375 8.20312ZM30.0781 26.25C30.0781 26.6851 29.9053 27.1024 29.5976 27.4101C29.2899 27.7178 28.8726 27.8906 28.4375 27.8906H6.5625C6.12738 27.8906 5.71008 27.7178 5.4024 27.4101C5.09473 27.1024 4.92188 26.6851 4.92188 26.25V10.9375C4.92188 10.5024 5.09473 10.0851 5.4024 9.7774C5.71008 9.46973 6.12738 9.29688 6.5625 9.29688H10.9375C11.0276 9.29693 11.1162 9.27475 11.1957 9.2323C11.2751 9.18984 11.3428 9.12843 11.3928 9.05352L13.4162 6.01562H21.5811L23.6072 9.05352C23.6572 9.12843 23.7249 9.18984 23.8043 9.2323C23.8838 9.27475 23.9724 9.29693 24.0625 9.29688H28.4375C28.8726 9.29688 29.2899 9.46973 29.5976 9.7774C29.9053 10.0851 30.0781 10.5024 30.0781 10.9375V26.25ZM17.5 12.5781C16.4184 12.5781 15.3611 12.8989 14.4617 13.4998C13.5624 14.1007 12.8615 14.9548 12.4475 15.9541C12.0336 16.9534 11.9253 18.0529 12.1363 19.1138C12.3473 20.1746 12.8682 21.149 13.633 21.9139C14.3978 22.6787 15.3723 23.1995 16.4331 23.4105C17.4939 23.6216 18.5935 23.5133 19.5928 23.0993C20.5921 22.6854 21.4462 21.9845 22.0471 21.0851C22.648 20.1858 22.9687 19.1285 22.9688 18.0469C22.9688 16.5965 22.3926 15.2055 21.367 14.1799C20.3414 13.1543 18.9504 12.5781 17.5 12.5781ZM17.5 22.4219C16.6347 22.4219 15.7888 22.1653 15.0694 21.6846C14.3499 21.2038 13.7892 20.5205 13.458 19.7211C13.1269 18.9217 13.0403 18.042 13.2091 17.1934C13.3779 16.3447 13.7946 15.5651 14.4064 14.9533C15.0183 14.3414 15.7978 13.9247 16.6465 13.7559C17.4951 13.5871 18.3748 13.6738 19.1742 14.0049C19.9737 14.336 20.6569 14.8968 21.1377 15.6163C21.6184 16.3357 21.875 17.1816 21.875 18.0469C21.875 19.2072 21.4141 20.32 20.5936 21.1405C19.7731 21.9609 18.6603 22.4219 17.5 22.4219Z" fill="white"/>
+                                      </svg></span>
+                                </div>
+                              </span>
+                            </div>
+                        </div>
+                        <section class="form">
+                            
+                                <div class="inputs">
+                                    <div class="input-block">
+                                        <div class="input-titles">
+                                            <span class="input-title">First Name</span>
+                                            <div class="edit-btn">
+                                                <span><img src="image/icon/icn1.png" alt=""></span>
+                                                <span class="field-title">Edit</span>
+                                            </div>
+                                        </div>
+                                        <div class="input-field">
+                                            <div class="input-field-box">
+                                                <input type="text" name="first_name" value = "<?php echo $reader['first_name']; ?> "  placeholder="<?php echo $reader['first_name']; ?>">
+                                                <img src="image/icon/icn2.png" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="input-block">
+                                        <div class="input-titles">
+                                            <span class="input-title">Last Name</span>
+                                            <div class="edit-btn">
+                                                <span><img src="image/icon/icn1.png" alt=""></span>
+                                                <span class="field-title">Edit</span>
+                                            </div>
+                                        </div>
+                                        <div class="input-field">
+                                            <div class="input-field-box">
+                                                <input type="text" name="last_name" value = "<?php echo $reader['last_name']; ?> "  placeholder="<?php echo $reader['last_name']; ?>">
+                                                <img src="image/icon/icn2.png" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    
+                                </div>
+                                <div class="inputs">
+                                    <div class="input-block">
+                                        <div class="input-titles">
+                                            <span class="input-title">Email</span>
+                                            <div class="edit-btn">
+                                        
+                                                <span class="field-title" style="color:#02D802;font-size: 15px;
+                                                font-style: normal;
+                                                font-weight: 700;"></span>
+                                            </div>
+                                        </div>
+                                        <div class="input-field">
+                                            <div class="input-field-box">
+                                                <input type="email" name="email" value = "<?php echo $reader['email']; ?> "  placeholder="<?php echo $reader['email']; ?>">
+                                                <img src="image/icon/icn4.png" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="input-block">
+                                        <div class="input-titles">
+                                            <span class="input-title">Phone Number</span>
+                                            <div class="edit-btn">
+                                             
+                                                <span class="field-title" style="color:#02D802;font-size: 15px;
+                                                font-style: normal;
+                                                font-weight: 700"></span>
+                                            </div>
+                                        </div>
+                                        <div class="input-field">
+                                            <div class="input-field-box">
+                                                <input type="text" name="phone_number" value = "<?php echo $reader['phone_number']; ?> "  placeholder="<?php echo $reader['phone_number']; ?>">
+                                                <img src="image/icon/icn5.png" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    
+                                </div>
+                                <div class="inputs">
+                                    <div class="input-block">
+                                        <div class="input-titles">
+                                            <span class="input-title">Date Of Birth</span>
+                                            <div class="edit-btn">
+                                                <span><img src="image/icon/icn1.png" alt=""></span>
+                                                <span class="field-title">Edit</span>
+                                            </div>
+                                        </div>
+                                        <div class="input-field">
+                                            <div class="input-field-box">
+                                                <input type="date" name="date_of_birth" value="<?php echo date('Y-m-d', strtotime($reader['date_of_birth'])); ?>"
+                                                                                                  placeholder="<?php echo $reader['date_of_birth']; ?>">
+                                                <img src="image/icon/icn6.png" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="input-block">
+                                        <div class="input-titles">
+                                            <span class="input-title">Country</span>
+                                            <div class="edit-btn">
+                                                <span><img src="image/icon/icn1.png" alt=""></span>
+                                                <span class="field-title">Edit</span>
+                                            </div>
+                                        </div>
+                                        <div class="input-field">
+                                            <div class="input-field-box">
+                                                <select id="options" value = "<?php echo $reader['country']; ?> "  name="country"style="width: 345px; height: 45px; font-size: 16px; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                                                    <option value="Bangladesh">Bangladesh</option>
+                                                    <option value="Palestine">Palestine</option>
+                                                    <option value="Argentina">Argentina</option>
+                                                    <option value="Monaco">Monaco</option>
+                                                  </select>
+                                                <img src="image/icon/icn7.png" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    
+                                </div>
+                                
+                                <br>
+                                <div class="btn-blk">
+                                    <button name = "update_reader_profile" class="btns" style = "color: white">Save All Changes</button>
+                                </div>
+                                
+                            </form>
                             
                         </section>
                     </section>

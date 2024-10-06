@@ -878,9 +878,9 @@ function getUserRating($book_id, $shop_owner_id, $user_id) {
                     </form>
                 </div>
                 <div class="compare-wishlist-row">
-                    <a href="#" class="add-link"><i class="fas fa-heart"></i>Add to Wish List</a>
-                    <a href="#" class="add-link"><i class="fas fa-random"></i>See PDF</a>
-                </div>
+    <a href="#" class="add-link" data-bs-toggle="modal" data-bs-target="#priceComparisonModal"><i class="fas fa-random"></i> Compare Prices</a>
+</div>
+
             </div>
         </div>
 
@@ -1245,7 +1245,36 @@ function getUserRating($book_id, $shop_owner_id, $user_id) {
     <!-- all modals  -->
     <!-- Product Modal -->
 
-  
+  <!-- Price and Rating Comparison Modal -->
+<div class="modal fade" id="priceComparisonModal" tabindex="-1" aria-labelledby="priceComparisonLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="priceComparisonLabel">Price and Rating Comparison</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Dynamic content will be loaded here -->
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Shop Name</th>
+                            <th>Price</th>
+                            <th>Stock Status</th>
+                            <th>Rating</th>
+                        </tr>
+                    </thead>
+                    <tbody id="comparisonTableBody">
+                        <!-- Dynamic content loaded with JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 <script>
@@ -1313,6 +1342,53 @@ document.querySelectorAll('.star').forEach(function(star) {
         }
     });
 }
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var modal = document.getElementById('priceComparisonModal');
+    modal.addEventListener('show.bs.modal', function(event) {
+        var bookId = <?php echo $book_id; ?>; // Book ID from PHP
+
+        // Perform AJAX request to fetch price and rating comparison data
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'fetch_comparison_data.php?book_id=' + bookId, true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // Parse the JSON response from the server
+                var response = JSON.parse(xhr.responseText);
+
+                // Clear any previous content
+                var tableBody = document.getElementById('comparisonTableBody');
+                tableBody.innerHTML = '';
+
+                // Loop through each shop that has this book and add rows to the table
+                response.forEach(function(shop) {
+                    var row = document.createElement('tr');
+
+                    var shopNameCell = document.createElement('td');
+                    shopNameCell.textContent = shop.shop_name;
+                    row.appendChild(shopNameCell);
+
+                    var priceCell = document.createElement('td');
+                    priceCell.textContent = '৳' + shop.price;
+                    row.appendChild(priceCell);
+
+                    var stockStatusCell = document.createElement('td');
+                    stockStatusCell.textContent = shop.stock_quantity > 0 ? 'In Stock' : 'Out of Stock';
+                    row.appendChild(stockStatusCell);
+
+                    var ratingCell = document.createElement('td');
+                    ratingCell.textContent = shop.rating + ' ⭐';
+                    row.appendChild(ratingCell);
+
+                    tableBody.appendChild(row);
+                });
+            }
+        };
+        xhr.send();
+    });
+});
+
 </script>
 
     <!-- Use Minified Plugins Version For Fast Page Load -->

@@ -99,30 +99,39 @@
 
     function addToCart($conn, $book_id, $reader_id, $shop_owner_id) {
         // Check if the item is already in the cart
-        $query = 'SELECT amount FROM cart WHERE book_id = ? AND reader_id = ? AND shop_owner_id = ?';
+        $query = 'SELECT cart_id, amount FROM cart WHERE book_id = ? AND reader_id = ? AND shop_owner_id = ?';
         $stmt = $conn->prepare($query);
         $stmt->bind_param('iii', $book_id, $reader_id, $shop_owner_id);
         $stmt->execute();
         $stmt->store_result();
-    
+        
         if ($stmt->num_rows > 0) {
-            // If the item is already in the cart, update the amount by adding 1
-            $updateQuery = 'UPDATE cart SET amount = amount + 1 WHERE book_id = ? AND reader_id = ? AND shop_owner_id = ?';
+            // If the item is already in the cart, update the amount
+            $stmt->bind_result($cart_id, $amount);
+            $stmt->fetch();
+            $updateQuery = 'UPDATE cart SET amount = amount + 1 WHERE cart_id = ?';
             $updateStmt = $conn->prepare($updateQuery);
-            $updateStmt->bind_param('iii', $book_id, $reader_id, $shop_owner_id);
+            $updateStmt->bind_param('i', $cart_id);
             $updateStmt->execute();
             $updateStmt->close();
         } else {
-            // If the item is not in the cart, insert it with amount = 1
+            // Insert a new item into the cart
             $insertQuery = 'INSERT INTO cart (book_id, reader_id, shop_owner_id, amount) VALUES (?, ?, ?, 1)';
             $insertStmt = $conn->prepare($insertQuery);
             $insertStmt->bind_param('iii', $book_id, $reader_id, $shop_owner_id);
             $insertStmt->execute();
+    
+            // Retrieve the new cart_id
+            $cart_id = $conn->insert_id;  // Get the last inserted cart_id
             $insertStmt->close();
         }
     
+        // Store the cart_id in the session
+        $_SESSION['cart_id'] = $cart_id;
+    
         $stmt->close();
     }
+    
     
     // Example usage
     if (isset($_POST['add_to_cart'])) {

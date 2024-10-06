@@ -351,7 +351,7 @@ function card($genre_type) {
                         <a href="#" style="margin-top:0.65rem;margin-left:-1rem"><i class="fas fa-heart"></i></a>
 
                         <!-- View Icon with dynamic modal trigger -->
-                        <a href="book_details.php?book_id=<?php echo htmlspecialchars($book['book_id']); ?>&shop_owner_id=<?php echo htmlspecialchars($book['shop_owner_id']); ?>" class="openModalBtn">
+                        <a style="margin-top:0.55rem;margin-left:-0.5rem" href="book_details.php?book_id=<?php echo htmlspecialchars($book['book_id']); ?>&shop_owner_id=<?php echo htmlspecialchars($book['shop_owner_id']); ?>" class="openModalBtn">
     <i class="fas fa-eye"></i>
 </a>
                     </div>

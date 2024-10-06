@@ -155,21 +155,28 @@
                         <div class="col-lg-6">
                             <div class="main-navigation flex-lg-right">
                                 <ul class="main-menu menu-right ">
-                                    <li class="menu-item ">
+                                <li class="menu-item ">
                                         <a href="index.php">Home</a>
                                         
                                     </li>
                                     <!-- Shop -->
                                     <li class="menu-item mega-menu">
-                                        <a href="javascript:void(0)">shop </a>
+                                        <a href="book-list.php">shop </a>
                                         
                                         
                                     </li>
+                                    
                                     <!-- Pages -->
-                                    <li class="menu-item ">
-                                        <a href="javascript:void(0)">Faqs</a>
-                                        
-                                    </li>
+                                    <li class="menu-item has-children">
+										<a href="javascript:void(0)">Book<i
+												class="fas fa-chevron-down dropdown-arrow"></i></a>
+										<ul class="sub-menu">
+											<li> <a href="book-list.php">Buy</a></li>
+											<li> <a href="borrow-list.php">Borrow</a></li>
+											<li> <a href="exchange-list.php">Exchange</a></li>
+								
+										</ul>
+									</li>
                                     <!-- Blog -->
                                     <li class="menu-item mega-menu">
                                         <a href="javascript:void(0)">Blog </a>
@@ -775,56 +782,151 @@ function timeAgo($time_ago) {
     }
 }
 ?>
-  <?php include 'backend/notification.php';
-   $res = getExchangeRequests($_SESSION['user_id']);
-   if($res){ foreach($res as $r){ ?>
-   <?php  updateNotificationStatusToSeen($r['notification_id'],"Requestee"); ?>
-  <div class="notification-container">
-        <div class="notification-icon">
-            🔔
-        </div>
+ <?php 
+include 'backend/notification.php';
+
+// Handle the selection input (default to "requests")
+$filter = isset($_POST['filter']) ? $_POST['filter'] : 'requests';
+?>
+
+<!-- Filter Form -->
+<style>
+    /* Style for the form container */
+    .filter-form {
+        display: flex;
+        flex-direction: column;
+        max-width: 300px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Style for the label */
+    .filter-form label {
+        font-family: 'Arial', sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 8px;
+        color: #333;
+    }
+
+    /* Style for the select dropdown */
+    .filter-form select {
+        padding: 10px;
+        font-size: 16px;
+        font-family: 'Arial', sans-serif;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #fff;
+        color: #333;
+        outline: none;
+        transition: border-color 0.3s;
+    }
+
+    /* Change border color on focus */
+    .filter-form select:focus {
+        border-color: #62ab00;
+    }
+
+    /* Style the entire form when the select is submitted */
+    .filter-form select:hover {
+        border-color: #62ab00;
+        cursor: pointer;
+    }
+
+    /* Style for centering the form */
+    .filter-form-container {
+        text-align: center;
+    }
+
+    /* Style for submit button (if you plan to add one) */
+    .filter-form button {
+        margin-top: 15px;
+        padding: 10px 20px;
+        background-color: #62ab00;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    /* Change button color on hover */
+    .filter-form button:hover {
+        background-color: #558a00;
+    }
+</style>
+
+<!-- Form Container -->
+<div class="filter-form-container">
+    <form method="POST" action="" class="filter-form">
+        <label for="filter">Select Notification Type:</label>
+        <select name="filter" id="filter" onchange="this.form.submit()">
+            <option value="requests" <?php if ($filter == 'requests') echo 'selected'; ?>>Exchange Requests</option>
+            <option value="responses" <?php if ($filter == 'responses') echo 'selected'; ?>>Responses</option>
+        </select>
+    </form>
+</div>
+
+
+<?php
+// Display notifications based on the selected filter
+if ($filter == 'requests') {
+    $res = getExchangeRequests($_SESSION['user_id']);
+    if($res){
+        foreach($res as $r){ 
+            updateNotificationStatusToSeen($r['notification_id'], "Requestee");
+?>
+    <div class="notification-container">
+        <div class="notification-icon">🔔</div>
         <div class="notification-details">
             <div class="notification-header">
                 <span class="notification-title">Book Exchange Request</span>
-
-
-<span class="notification-time"><?php echo timeAgo($r['request_date']); ?></span>
+                <span class="notification-time"><?php echo timeAgo($r['request_date']); ?></span>
             </div>
             <div class="notification-content">
-                <p><strong>Requestor:</strong> <?php echo $r['requestor_name'] ?>, <?php echo $r['requestor_phone_number'] ?></p>
-                <p><strong>Book:</strong> <?php echo $r['requestor_book'] ?></p>
-                <p><?php echo $r['requestor_name'] ?> wants to exchange his <?php echo $r['requestor_book'] ?> with your <?php echo $r['requestee_book'] ?>
-                 <br>Go to your <a href="exchange-books-reader.php" style= "color: #62ab00">dashboard</a> to give response </p>
+                <p><strong>Requestor:</strong> <?php echo $r['requestor_name']; ?>, <?php echo $r['requestor_phone_number']; ?></p>
+                <p><strong>Book:</strong> <?php echo $r['requestor_book']; ?></p>
+                <p><?php echo $r['requestor_name']; ?> wants to exchange his <?php echo $r['requestor_book']; ?> with your <?php echo $r['requestee_book']; ?>.
+                <br>Go to your <a href="exchange-books-reader.php" style="color: #62ab00">dashboard</a> to give a response.</p>
             </div>
         </div>
     </div>
-
-<?php } } ?>
-<?php 
-   $res = getResponse($_SESSION['user_id']);
-   if($res){ foreach($res as $r){ ?>
-   <?php  updateNotificationStatusToSeen($r['notification_id'],"Requestor"); ?>
-  <div class="notification-container">
-        <div class="notification-icon">
-            🔔
-        </div>
+<?php
+        }
+    } else {
+        echo "<p>No exchange requests found.</p>";
+    }
+} elseif ($filter == 'responses') {
+    $res = getResponse($_SESSION['user_id']);
+    if($res){
+        foreach($res as $r){ 
+            updateNotificationStatusToSeen($r['notification_id'], "Requestor");
+?>
+    <div class="notification-container">
+        <div class="notification-icon">🔔</div>
         <div class="notification-details">
             <div class="notification-header">
                 <span class="notification-title">Update of Book Exchange Request</span>
-
-
-<span class="notification-time"><?php echo timeAgo($r['response_date']); ?></span>
+                <span class="notification-time"><?php echo timeAgo($r['response_date']); ?></span>
             </div>
             <div class="notification-content">
-                <p><strong>Owner:</strong> <?php echo $r['requestee_name'] ?>, <?php echo $r['requestee_phone_number'] ?></p>
-                <p><strong>Book:</strong> <?php echo $r['requestee_book'] ?></p>
-                <p><?php echo $r['requestor_name'] ?> <?php echo $r['status'] ?> to exchange his <?php echo $r['requestor_book'] ?> with your <?php echo $r['requestee_book'] ?>
-               
+                <p><strong>Owner:</strong> <?php echo $r['requestee_name']; ?>, <?php echo $r['requestee_phone_number']; ?></p>
+                <p><strong>Book:</strong> <?php echo $r['requestee_book']; ?></p>
+                <p><?php echo $r['requestor_name']; ?> <?php echo $r['status']; ?> to exchange his <?php echo $r['requestor_book']; ?> with your <?php echo $r['requestee_book']; ?>.</p>
             </div>
         </div>
     </div>
+<?php
+        }
+    } else {
+        echo "<p>No responses found.</p>";
+    }
+}
+?>
 
-<?php } } ?>
          
 
 
@@ -849,51 +951,7 @@ function timeAgo($time_ago) {
 
         <!-- notification -->
 			
-	<!--=================================
-  Brands Slider
-===================================== -->
-	<section class="section-margin">
-		<h2 class="sr-only">Brand Slider</h2>
-		<div class="container">
-			<div class="brand-slider sb-slick-slider border-top border-bottom" data-slick-setting='{
-                                            "autoplay": true,
-                                            "autoplaySpeed": 8000,
-                                            "slidesToShow": 6
-                                            }' data-slick-responsive='[
-                {"breakpoint":992, "settings": {"slidesToShow": 4} },
-                {"breakpoint":768, "settings": {"slidesToShow": 3} },
-                {"breakpoint":575, "settings": {"slidesToShow": 3} },
-                {"breakpoint":480, "settings": {"slidesToShow": 2} },
-                {"breakpoint":320, "settings": {"slidesToShow": 1} }
-            ]'>
-				<div class="single-slide">
-					<img src="image/others/brand-1.jpg" alt="">
-				</div>
-				<div class="single-slide">
-					<img src="image/others/brand-2.jpg" alt="">
-				</div>
-				<div class="single-slide">
-					<img src="image/others/brand-3.jpg" alt="">
-				</div>
-				<div class="single-slide">
-					<img src="image/others/brand-4.jpg" alt="">
-				</div>
-				<div class="single-slide">
-					<img src="image/others/brand-5.jpg" alt="">
-				</div>
-				<div class="single-slide">
-					<img src="image/others/brand-6.jpg" alt="">
-				</div>
-				<div class="single-slide">
-					<img src="image/others/brand-1.jpg" alt="">
-				</div>
-				<div class="single-slide">
-					<img src="image/others/brand-2.jpg" alt="">
-				</div>
-			</div>
-		</div>
-	</section>
-	
+	<br><br>
     
 	<!--=================================
     Footer Area

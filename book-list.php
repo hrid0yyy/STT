@@ -437,7 +437,124 @@ function findMatchingBooks($ocrText) {
                                         color: #62ab00;
                                     }
                                     </style>
+
+                                     <!-- NOTIFICATION SYSTEM -->
+                                     <?php if(!empty($_SESSION['user_id'])){?>
+                                    <style>
+                                       .menu-item {
+                                                position: relative;
+                                                display: inline-block;
+                                            }
+
+                                            .menu-item .hover-text {
+                                                visibility: hidden;
+                                                opacity: 0;
+                                                background-color: #f0f0f0; /* Light background for contrast */
+                                                color: #333; /* Darker text for readability */
+                                                text-align: center;
+                                                padding: 8px 12px;
+                                                border-radius: 8px; /* Rounded corners */
+                                                position: absolute;
+                                                top: 120%; /* Slightly lower than the link */
+                                                left: 50%;
+                                                transform: translateX(-50%);
+                                                white-space: nowrap;
+                                                z-index: 1;
+                                                transition: all 0.3s ease; /* Smooth transition */
+                                                border: 1px solid #ddd; /* Subtle border */
+                                                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow */
+                                                font-size: 14px; /* Adjust font size */
+                                            }
+
+                                            .menu-item:hover .hover-text {
+                                                visibility: visible;
+                                                opacity: 1;
+                                                top: 100%; /* Move up slightly when shown */
+                                            }
+
+                                            .menu-item .hover-text:before {
+                                                content: '';
+                                                position: absolute;
+                                                bottom: 100%; /* Position above the hover text */
+                                                left: 50%;
+                                                transform: translateX(-50%);
+                                                border-width: 8px;
+                                                border-style: solid;
+                                                border-color: transparent transparent #f0f0f0 transparent; /* Triangle pointing down */
+                                            }
+
+                                            .menu-item:hover a {
+                                                color: #007bff; /* Change link color on hover */
+                                            }
+
+
+                               
+
+                                    </style>
+
+                                <?php include 'backend/notification.php'  ?>
+
+                                <li class="menu-item">
+    <a href="notification-page.php" class="notification-link">
+        Notification 
+        <span class="text-number notification-badge">
+            <?php $newNotifications = totalnotification($_SESSION['user_id']); ?>
+            <?php echo $newNotifications; ?>
+        </span>
+    </a>
+
+    <?php if($newNotifications > 0): ?>
+        <span class="hover-text blink">
+            <?php echo $newNotifications; ?> New Notifications
+        </span>
+    <?php else: ?>
+        <span class="hover-text">
+            No New Notifications
+        </span>
+    <?php endif; ?>
+</li>
+
+<style>
+    .notification-badge {
+        background-color: red;
+        color: white;
+        border-radius: 50%;
+        padding: 3px 8px;
+        font-weight: bold;
+        font-size: 12px;
+        position: relative;
+        top: -2px;
+    }
+
+    /* Add blinking effect for hover-text when there are new notifications */
+    .blink {
+        animation: blink-animation 1s steps(5, start) infinite;
+        color: red;
+        font-weight: bold;
+    }
+
+    @keyframes blink-animation {
+        to {
+            visibility: hidden;
+        }
+    }
+
+    /* Add some styling to the notification link to make it more noticeable */
+    .notification-link {
+        font-weight: bold;
+        color: #333;
+        text-decoration: none;
+    }
+
+    .notification-link:hover {
+        color: #ff6347; /* Tomato color on hover */
+    }
+</style>
+                                        <?php } ?>
+                                     <!-- NOTIFICATION SYSTEM -->
+                                 
                                     <?php if(!empty($_SESSION['username'])){  ?>
+
 
 <form method="POST">
     <button type="submit" name="logout" class="header-btn">LOGOUT</button>

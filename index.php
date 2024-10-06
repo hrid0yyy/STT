@@ -6,6 +6,125 @@ include "genre-card.php";
 if(!empty($_SESSION['user_id'])){
 $cart_items  = cart_items($_SESSION['user_id']);
 }
+function displayAdvertisements() {
+    global $conn; // Use the global connection
+
+    // Fetch active advertisements
+    $query = "SELECT b.title, ba.discount_percentage, ba.advertising_end_date, s.shop_name, b.bookcover, ba.book_id, ba.shop_owner_id
+              FROM book_advertisements ba 
+              JOIN books b ON ba.book_id = b.book_id 
+              JOIN shopowners s ON ba.shop_owner_id = s.shop_owner_id 
+              WHERE ba.status = 'active' AND ba.advertising_end_date > NOW()";
+    
+    $result = $conn->query($query);
+
+    // Check if there are advertisements to display
+    if ($result->num_rows > 0) {
+        // Create the HTML structure for advertisements
+        echo '<div class="swiper-container">';
+        echo '<div class="swiper-wrapper">';
+
+        while ($row = $result->fetch_assoc()) {
+            ?>
+            <div class="swiper-slide">
+                <!-- Book Card -->
+                <div class="book-card">
+                    <!-- Book Cover Image -->
+                    <img class="book-image" src="image/book-cover/<?php echo htmlspecialchars($row['bookcover']); ?>" 
+                         alt="Book cover image" 
+                         onerror="this.onerror=null;this.src='image/book-cover/default.png';">
+
+                    <!-- Book Details -->
+                    <div class="book-details">
+                        <h3 class="book-title"><?php echo htmlspecialchars($row['title']); ?></h3>
+                        <p class="book-description">Enjoy <?php echo htmlspecialchars($row['discount_percentage']); ?>% discount!</p>
+                        <div class="book-price">Discount: <?php echo htmlspecialchars($row['discount_percentage']); ?>%</div>
+                        <div class="shop-name">
+                            Shop Name: <?php echo htmlspecialchars($row['shop_name']); ?>
+                        </div>
+                        <div class="shop-name">
+                            Ends on: <?php echo htmlspecialchars($row['advertising_end_date']); ?>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons (Icons on hover) -->
+                    <div class="action-buttons">
+                        <!-- View Advertisement -->
+                        <a href="book_details.php?book_id=<?php echo htmlspecialchars($row['book_id']); ?>&shop_owner_id=<?php echo htmlspecialchars($row['shop_owner_id']); ?>" class="openModalBtn">
+                            <i class="fas fa-eye"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <?php
+        }
+
+        echo '</div>';
+        echo '<div class="swiper-button-next"></div>';
+        echo '<div class="swiper-button-prev"></div>';
+        echo '<div class="swiper-pagination"></div>';
+        echo '</div>';
+    } else {
+        echo "<p>No advertisements available.</p>";
+    }
+}
+// Fetch top-rated books
+$topRatedQuery = "
+    SELECT b.book_id, b.title, b.bookcover, b.isbn, b.description,  AVG(r.star_rating) as average_rating
+    FROM books b
+    JOIN ratings r ON b.book_id = r.book_id
+    GROUP BY b.book_id
+    ORDER BY average_rating DESC
+    LIMIT 5";
+$topRatedResult = $conn->query($topRatedQuery);
+
+// Fetch top seller books
+$topSellerQuery = "
+    SELECT b.book_id, b.title, b.bookcover, b.isbn, b.description, COUNT(p.purchase_id) AS total_sales
+    FROM books b
+    JOIN purchase p ON b.book_id = p.book_id
+    GROUP BY b.book_id
+    ORDER BY total_sales DESC
+    LIMIT 5";
+$topSellersResult = $conn->query($topSellerQuery);
+
+// Fetch new arrivals based on created_at timestamp
+$newArrivalQuery = "
+    SELECT b.book_id, b.title, b.bookcover, b.isbn, b.description, b.created_at
+    FROM books b
+    ORDER BY b.created_at DESC
+    LIMIT 5";
+$newArrivalsResult = $conn->query($newArrivalQuery);
+
+// Function to display books with price, description, etc.
+function displayBooks($result) {
+    if ($result && $result->num_rows > 0) {
+        while ($book = $result->fetch_assoc()) {
+            echo '<div class="book-card">';
+            echo '<div class="book-cover">';
+            echo '<img src="image/book-cover/' . htmlspecialchars($book['bookcover']) . '" alt="Book Cover">';
+            echo '</div>';
+            echo '<div class="book-info">';
+            echo '<h3 class="book-title">' . htmlspecialchars($book['title']) . '</h3>';
+            
+            echo '<p class="book-isbn">ISBN: ' . htmlspecialchars($book['isbn']) . '</p>';
+            echo '<p class="book-description">' . htmlspecialchars($book['description']) . '</p>';
+            if (isset($book['average_rating'])) {
+                echo '<p class="book-rating">Rating: ' . number_format($book['average_rating'], 2) . '/5</p>';
+            }
+            if (isset($book['total_sales'])) {
+                echo '<p class="book-sales">Sold: ' . $book['total_sales'] . ' copies</p>';
+            }
+            if (isset($book['price'])) {
+                echo '<p class="book-price">Price: $' . number_format($book['price'], 2) . '</p>';
+            }
+            echo '</div>'; // End of book-info
+            echo '</div>'; // End of book-card
+        }
+    } else {
+        echo '<p>No books available</p>';
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -253,7 +372,96 @@ $cart_items  = cart_items($_SESSION['user_id']);
         margin: 0 10px;
     }
 }
+/* Section Styling */
+header h1 {
+    text-align: center;
+    padding: 20px;
+}
 
+/* Tab Navigation */
+.tabs {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.tab-button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    border: none;
+    background-color: #eee;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.tab-button.active {
+    background-color: #8bc34a;
+    color: white;
+    font-weight: bold;
+}
+
+.tab-button:hover {
+    background-color: #8bc34a;
+    color: white;
+}
+
+.tab-content {
+    display: none;
+    text-align: center;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Book Section Styling */
+.book-section {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+/* Book Card Styling */
+.book-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    margin: 15px;
+    padding: 15px;
+    text-align: center;
+}
+
+.book-cover img {
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.book-info h3 {
+    font-size: 1.1em;
+    color: #333;
+}
+
+.book-info p {
+    margin: 5px 0;
+}
+
+.book-info .book-rating {
+    color: #ff9800;
+}
+
+.book-info .book-sales {
+    color: #2196f3;
+}
+
+.book-info .price {
+    font-weight: bold;
+    color: green;
+    margin-top: 5px;
+}
 
                                     
                                 </style>
@@ -516,7 +724,7 @@ function findMatchingBooks($ocrText) {
                                     </li>
                                     <!-- Shop -->
                                     <li class="menu-item mega-menu">
-                                        <a href="javascript:void(0)">shop </a>
+                                        <a href="book-list.php">shop </a>
                                         
                                         
                                     </li>
@@ -590,14 +798,15 @@ function findMatchingBooks($ocrText) {
                                     </style>
 
                                 <?php include 'backend/notification.php'  ?>
-
+                                <?php $newNotifications = totalnotification($_SESSION['user_id']); ?>
                                 <li class="menu-item">
     <a href="notification-page.php" class="notification-link">
         Notification 
+        <?php if ($newNotifications != 0){ ?>
         <span class="text-number notification-badge">
-            <?php $newNotifications = totalnotification($_SESSION['user_id']); ?>
             <?php echo $newNotifications; ?>
         </span>
+        <?php } ?>
     </a>
 
     <?php if($newNotifications > 0): ?>
@@ -787,13 +996,206 @@ function findMatchingBooks($ocrText) {
             </div>
         </div>
     <br>
-  
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+  <style>
+    /* General Swiper Styling */
+        .swiper-container {
+            width: 100%;
+            padding: 20px 0;
+            margin: 0 auto;
+            position: relative;
+        }
 
+        .swiper-wrapper {
+            display: flex;
+        }
+
+        .swiper-slide {
+            flex: 0 0 calc(100% / 6 - 20px); /* 6 slides per view, with spacing */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Book Card Styling */
+        .book-card {
+            position: relative;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 180px;
+            height: 500px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .book-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .book-card:hover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        .book-image {
+            width: 100%;
+            height: 220px;
+            background-color: #eee;
+            object-fit: cover;
+        }
+
+        .book-details {
+            padding: 10px;
+            text-align: left;
+        }
+
+        .book-title {
+            font-size: 1.1em;
+            margin: 0;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .book-description {
+            color: #777;
+            margin: 8px 0;
+            font-size: 0.9em;
+            display: -webkit-box; /* Display as a webkit box for multi-line truncation */
+            -webkit-line-clamp: 3; /* Limit to 3 lines */
+            -webkit-box-orient: vertical; /* Set the box orientation to vertical */
+            overflow: hidden; /* Hide the overflow text */
+            text-overflow: ellipsis; /* Add ellipsis (...) to indicate overflow */
+
+        }
+
+        .book-price {
+            font-size: 1.1em;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .shop-name {
+            color: #555;
+            margin-top: 5px;
+            font-size: 0.9em;
+        }
+
+        .action-buttons {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+            z-index: 2;
+            flex-direction: row;
+            gap: 15px;
+        }
+
+        .book-card:hover .action-buttons {
+            display: flex;
+        }
+
+        .action-buttons a {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1.8em;
+            color: #fff;
+            transition: color 0.3s ease;
+        }
+
+        .action-buttons a:hover {
+            color: #62ab00;
+        }
+    </style>
+<div class="section-title section-title--bordered">
+        <h2>Book Recommendations</h2>
+    </div>
+    
+    <!-- Tab Navigation -->
+    <div class="tabs">
+        <button class="tab-button active" onclick="openTab(event, 'topRated')">Top Rated</button>
+        <button class="tab-button" onclick="openTab(event, 'topSellers')">Top Sellers</button>
+        <button class="tab-button" onclick="openTab(event, 'newArrivals')">New Arrivals</button>
+    </div>
+
+    <!-- Tab Content Sections -->
+    <div id="topRated" class="tab-content active">
+        <h2>Top Rated</h2>
+        <div class="book-section">
+            <?php displayBooks($topRatedResult); ?>
+            
+        </div>
+    </div>
+
+    <div id="topSellers" class="tab-content">
+        <h2>Top Sellers</h2>
+        <div class="book-section">
+            <?php displayBooks($topSellersResult); ?>
+        </div>
+    </div>
+
+    <div id="newArrivals" class="tab-content">
+        <h2>New Arrivals</h2>
+        <div class="book-section">
+            <?php displayBooks($newArrivalsResult); ?>
+        </div>
+    </div>
 <br>
 <?php card("Novel"); ?>
 <br>
 <?php card("Crime"); ?>
 
+
+
+
+    <div class="section-title section-title--bordered">
+        <h2>Discount Offer</h2>
+    </div>
+    <div class="ads-container">
+        <?php displayAdvertisements(); ?>
+    </div>
+     <!-- Include Swiper.js JavaScript -->
+     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+<!-- Swiper initialization script -->
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        slidesPerView: 6,
+        spaceBetween: 20,
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        loop: false,  // Looping is disabled for now
+        breakpoints: {
+            640: {
+                slidesPerView: 2,
+                spaceBetween: 10,
+            },
+            768: {
+                slidesPerView: 4,
+                spaceBetween: 15,
+            },
+            1024: {
+                slidesPerView: 6,
+                spaceBetween: 20,
+            }
+        }
+    });
+</script>
         <br>
     <!--=================================
     Footer Area
@@ -1077,7 +1479,25 @@ function findMatchingBooks($ocrText) {
     <script src="js/ajax-mail.js"></script>
     <script src="js/custom.js"></script>
     
+<!-- JavaScript for Tab Navigation -->
+<script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tabbuttons;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tabbuttons = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tabbuttons.length; i++) {
+                tabbuttons[i].classList.remove("active");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.classList.add("active");
+        }
 
+        // Show default tab
+        document.getElementById("topRated").style.display = "block";
+    </script>
 
 
 </body>

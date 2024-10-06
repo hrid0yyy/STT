@@ -12,6 +12,7 @@
         }
     ],
     "require": {
-        "thiagoalessio/tesseract_ocr": "^2.12"
+        "thiagoalessio/tesseract_ocr": "^2.12",
+        "guzzlehttp/guzzle": "^7.9"
     }
 }
